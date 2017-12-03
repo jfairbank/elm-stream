@@ -123,9 +123,6 @@ starting and ending number as arguments.
     range 1 10
         |> toList == [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
-    range 5 1
-        |> toList == [5, 4, 3, 2, 1]
-
 -}
 range : Int -> Int -> Stream Int
 range start end =
