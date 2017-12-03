@@ -1,12 +1,14 @@
 {
-    "version": "1.0.0",
+    "version": "1.0.1",
     "summary": "Fast and simple stream library for Elm.",
     "repository": "https://github.com/jfairbank/elm-stream.git",
     "license": "MIT",
     "source-directories": [
         "."
     ],
-    "exposed-modules": ["Stream"],
+    "exposed-modules": [
+        "Stream"
+    ],
     "dependencies": {
         "elm-lang/core": "5.1.1 <= v < 6.0.0"
     },
