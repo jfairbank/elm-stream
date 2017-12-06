@@ -69,6 +69,13 @@ suite =
                             |> Stream.toList
                             |> Expect.equal [ 1, 2, 3, 4, 5 ]
             ]
+        , describe ".append"
+            [ test "appends two streams" <|
+                \_ ->
+                    Stream.append (Stream.range 1 3) (Stream.range 4 6)
+                        |> Stream.toList
+                        |> Expect.equal [ 1, 2, 3, 4, 5, 6 ]
+            ]
         , describe ".map"
             [ test "transforms every value with a function" <|
                 \_ ->

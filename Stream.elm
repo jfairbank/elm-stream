@@ -1,6 +1,7 @@
 module Stream
     exposing
         ( Stream
+        , append
         , continue
         , create
         , empty
@@ -30,6 +31,11 @@ multiple operations over lists.
 # Create Streams
 
 @docs empty, range, create, continue, stop
+
+
+# Combine Streams
+
+@docs append
 
 
 # Transform Streams
@@ -122,6 +128,22 @@ toList stream =
 empty : Stream a
 empty () =
     Nil
+
+
+{-| Combine two streams.
+
+    append (range 1 3) (range 4 6)
+        |> toList == [1, 2, 3, 4, 5, 6]
+
+-}
+append : Stream a -> Stream a -> Stream a
+append stream1 stream2 () =
+    case stream1 () of
+        Cons value nextStream ->
+            Cons value (append nextStream stream2)
+
+        Nil ->
+            stream2 ()
 
 
 {-| Create a stream of numbers with each number increasing by one. Provide the
