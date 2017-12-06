@@ -3,6 +3,7 @@ module Stream
         ( Stream
         , continue
         , create
+        , empty
         , filter
         , fromList
         , map
@@ -28,7 +29,7 @@ multiple operations over lists.
 
 # Create Streams
 
-@docs range, create, continue, stop
+@docs empty, range, create, continue, stop
 
 
 # Transform Streams
@@ -72,11 +73,6 @@ type Next a
     | Stop
 
 
-empty : Stream a
-empty () =
-    Nil
-
-
 {-| Create a stream from a list.
 
     fromList [1, 2, 3]
@@ -115,6 +111,17 @@ toList stream =
         []
             |> toList_ (stream ())
             |> List.reverse
+
+
+{-| A stream with no values.
+
+    empty
+        |> toList == []
+
+-}
+empty : Stream a
+empty () =
+    Nil
 
 
 {-| Create a stream of numbers with each number increasing by one. Provide the

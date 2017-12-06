@@ -22,6 +22,13 @@ suite =
                         |> Stream.toList
                         |> Expect.equal []
             ]
+        , describe ".empty"
+            [ test "creates a stream with no values" <|
+                \_ ->
+                    Stream.empty
+                        |> Stream.toList
+                        |> Expect.equal []
+            ]
         , describe ".range"
             [ test "creates an incrementing stream from a starting to ending number" <|
                 \_ ->
