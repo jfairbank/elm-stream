@@ -37,7 +37,7 @@ multiple operations over lists.
 @docs singleton, empty, range, create, continue, stop
 
 
-# Combine Streams
+# Add to Streams
 
 @docs cons, append
 
