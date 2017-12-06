@@ -10,6 +10,7 @@ module Stream
         , fromList
         , map
         , range
+        , singleton
         , stop
         , take
         , toList
@@ -31,7 +32,7 @@ multiple operations over lists.
 
 # Create Streams
 
-@docs empty, range, create, continue, stop
+@docs singleton, empty, range, create, continue, stop
 
 
 # Combine Streams
@@ -129,6 +130,17 @@ toList stream =
 empty : Stream a
 empty () =
     Nil
+
+
+{-| Create a stream with a single value.
+
+    singleton 42
+        |> toList == [42]
+
+-}
+singleton : a -> Stream a
+singleton value =
+    cons value empty
 
 
 {-| Add a value to the beginning of a stream.

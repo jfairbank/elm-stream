@@ -22,6 +22,13 @@ suite =
                         |> Stream.toList
                         |> Expect.equal []
             ]
+        , describe ".singleton"
+            [ test "creates a stream with a single value" <|
+                \_ ->
+                    Stream.singleton 42
+                        |> Stream.toList
+                        |> Expect.equal [ 42 ]
+            ]
         , describe ".empty"
             [ test "creates a stream with no values" <|
                 \_ ->
