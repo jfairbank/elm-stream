@@ -1,5 +1,5 @@
 {
-    "version": "1.0.1",
+    "version": "1.1.0",
     "summary": "Fast and simple stream library for Elm.",
     "repository": "https://github.com/jfairbank/elm-stream.git",
     "license": "MIT",
