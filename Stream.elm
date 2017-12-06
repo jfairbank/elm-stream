@@ -1,6 +1,7 @@
 module Stream
     exposing
         ( Stream
+        , concatMap
         , append
         , cons
         , continue
@@ -43,7 +44,7 @@ multiple operations over lists.
 
 # Transform Streams
 
-@docs map, filter, take, takeWhile
+@docs map, filter, take, takeWhile, concatMap
 
 -}
 
@@ -338,3 +339,36 @@ takeWhile predicate stream () =
             Nil
 
 
+{-| Map values to streams and flatten the resulting streams.
+
+    -- Convert list of words to stream of letters
+    ["hello", "there"]
+        |> fromList
+        |> concatMap (\word -> word |> String.split "" |> fromList)
+        |> toList == ["h", "e", "l", "l", "o", "t", "h", "e", "r", "e"]
+
+    -- Flatten inner stream ranges
+    range 1 3
+        |> concatMap (\n -> range n (n + 2))
+        |> toList == [1, 2, 3, 2, 3, 4, 3, 4, 5]
+
+    -- Skip values with `empty`
+    range 1 10
+        |> concatMap
+            (\n ->
+                if n < 6 then
+                    empty
+                else
+                    singleton n
+            )
+        |> toList [6, 7, 8, 9, 10]
+
+-}
+concatMap : (a -> Stream b) -> Stream a -> Stream b
+concatMap f stream () =
+    case stream () of
+        Cons value nextStream ->
+            append (f value) (concatMap f nextStream) ()
+
+        Nil ->
+            Nil

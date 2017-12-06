@@ -129,4 +129,25 @@ suite =
                         |> Stream.toList
                         |> Expect.equal []
             ]
+        , describe ".concatMap"
+            [ test "flattens resulting mapped streams" <|
+                \_ ->
+                    [ "hello", "there" ]
+                        |> Stream.fromList
+                        |> Stream.concatMap (String.split "" >> Stream.fromList)
+                        |> Stream.toList
+                        |> Expect.equal [ "h", "e", "l", "l", "o", "t", "h", "e", "r", "e" ]
+            , test "skip values with empty" <|
+                \_ ->
+                    Stream.range 1 10
+                        |> Stream.concatMap
+                            (\n ->
+                                if n < 6 then
+                                    Stream.empty
+                                else
+                                    Stream.singleton n
+                            )
+                        |> Stream.toList
+                        |> Expect.equal [ 6, 7, 8, 9, 10 ]
+            ]
         ]
