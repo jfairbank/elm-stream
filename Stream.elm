@@ -2,6 +2,7 @@ module Stream
     exposing
         ( Stream
         , append
+        , cons
         , continue
         , create
         , empty
@@ -35,7 +36,7 @@ multiple operations over lists.
 
 # Combine Streams
 
-@docs append
+@docs cons, append
 
 
 # Transform Streams
@@ -128,6 +129,17 @@ toList stream =
 empty : Stream a
 empty () =
     Nil
+
+
+{-| Add a value to the beginning of a stream.
+
+    cons (singleton 1) (singleton 2)
+        |> toList == [1, 2]
+
+-}
+cons : a -> Stream a -> Stream a
+cons value stream () =
+    Cons value stream
 
 
 {-| Combine two streams.

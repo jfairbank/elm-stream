@@ -69,6 +69,14 @@ suite =
                             |> Stream.toList
                             |> Expect.equal [ 1, 2, 3, 4, 5 ]
             ]
+        , describe ".cons"
+            [ test "prepends a value to a stream" <|
+                \_ ->
+                    Stream.singleton 2
+                        |> Stream.cons 1
+                        |> Stream.toList
+                        |> Expect.equal [ 1, 2 ]
+            ]
         , describe ".append"
             [ test "appends two streams" <|
                 \_ ->
