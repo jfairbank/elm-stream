@@ -115,4 +115,18 @@ suite =
                         |> Stream.toList
                         |> Expect.equal [ 1, 2, 3, 4, 5 ]
             ]
+        , describe ".takeWhile"
+            [ test "only takes values while predicate is true" <|
+                \_ ->
+                    Stream.range 1 10
+                        |> Stream.takeWhile (\n -> n < 6)
+                        |> Stream.toList
+                        |> Expect.equal [ 1, 2, 3, 4, 5 ]
+            , test "creates an empty stream if first value doesn't pass predicate" <|
+                \_ ->
+                    Stream.range 1 10
+                        |> Stream.takeWhile (\n -> n < 1)
+                        |> Stream.toList
+                        |> Expect.equal []
+            ]
         ]

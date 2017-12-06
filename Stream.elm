@@ -13,6 +13,7 @@ module Stream
         , singleton
         , stop
         , take
+        , takeWhile
         , toList
         )
 
@@ -42,7 +43,7 @@ multiple operations over lists.
 
 # Transform Streams
 
-@docs map, filter, take
+@docs map, filter, take, takeWhile
 
 -}
 
@@ -315,3 +316,25 @@ take n stream () =
 
             Nil ->
                 Nil
+
+
+{-| Take values as long as the predicate function returns true.
+
+    range 1 10
+        |> takeWhile (\n -> n < 6)
+        |> toList == [1, 2, 3, 4, 5]
+
+-}
+takeWhile : (a -> Bool) -> Stream a -> Stream a
+takeWhile predicate stream () =
+    case stream () of
+        Cons value nextStream ->
+            if predicate value then
+                Cons value (takeWhile predicate nextStream)
+            else
+                Nil
+
+        Nil ->
+            Nil
+
+
